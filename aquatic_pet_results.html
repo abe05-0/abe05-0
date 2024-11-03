@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquatic Pet Recommendations</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0c0c0c;
+            color: #ffffff;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+            width: 350px;
+            text-align: center;
+            border: 2px solid #39ff14; /* Neon green border */
+        }
+        h2 {
+            color: #39ff14; /* Neon green text */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Recommendations</h2>
+    <p id="result">Loading your recommendations...</p>
+    <button onclick="goBack()">Go Back</button>
+</div>
+
+<script>
+    function getAquaticPetInfo() {
+        const petType = localStorage.getItem('petType');
+        const aquariumSize = localStorage.getItem('aquariumSize');
+
+        let careTips = "";
+        let tankMates = "";
+        let aquariumAdvice = "";
+
+        // Provide care tips and compatible tank mates based on user input
+        if (petType === "betta") {
+            careTips = "Betta fish require a heated tank (around 78-80°F). Avoid tank mates that are fin nippers.";
+            if (aquariumSize === "small") {
+                aquariumAdvice = "A 5-gallon tank is suitable for one Betta.";
+                tankMates = "Can be kept alone or with peaceful fish like Neon Tetras.";
+            } else if (aquariumSize === "medium") {
+                aquariumAdvice = "A 10-20 gallon tank allows for more space and tank mates.";
+                tankMates = "Good companions include some small Tetras.";
+            } else if (aquariumSize === "large") {
+                aquariumAdvice = "A 30-gallon tank can house multiple Bettas, but monitor behavior.";
+                tankMates = "You can include more peaceful species like Corydoras.";
+            }
+        } else if (petType === "guppy") {
+            careTips = "Guppies thrive in a planted tank and prefer a temperature around 74-78°F.";
+            if (aquariumSize === "small") {
+                aquariumAdvice = "A 5-gallon tank is enough for a small group of Guppies.";
+                tankMates = "Compatible with other small fish like Neon Tetras.";
+            } else if (aquariumSize === "medium") {
+                aquariumAdvice = "A 10-20 gallon tank is ideal for a larger group.";
+                tankMates = "Consider adding small community fish like Rasboras.";
+            } else if (aquariumSize === "large") {
+                aquariumAdvice = "A larger tank allows for many Guppies and varied species.";
+                tankMates = "Good companions include Platies or Swordtails.";
+            }
+        } else if (petType === "neon") {
+            careTips = "Neon Tetras prefer soft, slightly acidic water and thrive in schools.";
+            if (aquariumSize === "small") {
+                aquariumAdvice = "A 5-gallon tank can house a small school of Neon Tetras.";
+                tankMates = "Compatible with small, peaceful fish.";
+            } else if (aquariumSize === "medium") {
+                aquariumAdvice = "A 10-30 gallon tank is suitable for a larger school.";
+                tankMates = "Consider pairing with Guppies or other Tetras.";
+            } else if (aquariumSize === "large") {
+                aquariumAdvice = "A large tank can support a diverse community.";
+                tankMates = "Good companions include Corydoras and Shrimp.";
+            }
+        } else if (petType === "shrimp") {
+            careTips = "Cherry Shrimp thrive in clean water with plenty of hiding spots.";
+            if (aquariumSize === "small") {
+                aquariumAdvice = "A 5-gallon tank is suitable for a few Cherry Shrimp.";
+                tankMates = "Compatible with small fish like Rasboras.";
+            } else if (aquariumSize === "medium") {
+                aquariumAdvice = "A 10-20 gallon tank can host a colony of Cherry Shrimp.";
+                tankMates = "Good tank mates include small Tetras or Endlers.";
+            } else if (aquariumSize === "large") {
+                aquariumAdvice = "A larger tank allows for a thriving colony.";
+                tankMates = "You can add more community fish like Gouramis.";
+            }
+        }
+
+        // Set the result text
+        document.getElementById('result').innerHTML = `
+            <strong>Care Tips:</strong> ${careTips} <br><br>
+            <strong>Aquarium Size Advice:</strong> ${aquariumAdvice} <br><br>
+            <strong>Possible Tank Mates:</strong> ${tankMates}
+        `;
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+
+    // Call the function to display the info
+    getAquaticPetInfo();
+</script>
+
+</body>
+</html>

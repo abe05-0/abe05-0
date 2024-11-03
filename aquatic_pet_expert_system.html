@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquatic Pet Expert System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0c0c0c;
+            color: #ffffff;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+            width: 350px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #39ff14; /* Neon green border */
+        }
+        h2 {
+            color: #39ff14; /* Neon green text */
+        }
+        input[type="radio"] {
+            margin: 10px 5px;
+            accent-color: #39ff14; /* Neon green accent color */
+        }
+        select {
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #39ff14; /* Neon green border */
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            background-color: #39ff14; /* Neon green button */
+            border: none;
+            border-radius: 5px;
+            color: black;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #32cc14; /* Slightly darker neon green on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Aquatic Pet Selector</h2>
+
+    <div>
+        <p>1. What type of aquatic pet are you interested in?</p>
+        <input type="radio" name="petType" value="fish" id="fish" onchange="showFishOptions()">
+        <label for="fish">Fish</label><br>
+        <input type="radio" name="petType" value="shrimp" id="shrimp" onchange="hideFishOptions()">
+        <label for="shrimp">Shrimp</label>
+    </div>
+
+    <div id="fishOptions" style="display: none;">
+        <p>Select your fish type:</p>
+        <select id="specificFish" disabled>
+            <option value="">--Select a Fish--</option>
+            <option value="betta">Betta Fish</option>
+            <option value="guppy">Guppy Fish</option>
+            <option value="neon">Neon Tetra</option>
+        </select>
+    </div>
+
+    <div>
+        <p>2. How big is your aquarium?</p>
+        <input type="radio" name="aquariumSize" value="small" id="small">
+        <label for="small">5-10 gallons</label><br>
+        <input type="radio" name="aquariumSize" value="medium" id="medium">
+        <label for="medium">10-30 gallons</label><br>
+        <input type="radio" name="aquariumSize" value="large" id="large">
+        <label for="large">30+ gallons</label>
+    </div>
+
+    <button onclick="submitForm()">Get Info</button>
+</div>
+
+<script>
+    function showFishOptions() {
+        document.getElementById('fishOptions').style.display = 'block';
+        document.getElementById('specificFish').disabled = false; // Enable the fish selection
+    }
+
+    function hideFishOptions() {
+        document.getElementById('fishOptions').style.display = 'none';
+        document.getElementById('specificFish').disabled = true; // Disable the fish selection
+    }
+
+    function submitForm() {
+        const petType = document.querySelector('input[name="petType"]:checked')?.value;
+        const specificFish = document.getElementById('specificFish').value;
+        const aquariumSize = document.querySelector('input[name="aquariumSize"]:checked')?.value;
+
+        // Check that all questions have been answered
+        if ((petType === "fish" && !specificFish) || !aquariumSize) {
+            alert("Please answer all questions.");
+            return;
+        }
+
+        // Store data in localStorage to use in the results page
+        localStorage.setItem('petType', petType === "fish" ? specificFish : petType);
+        localStorage.setItem('aquariumSize', aquariumSize);
+
+        // Redirect to results page
+        window.location.href = 'aquatic_pet_results.html';
+    }
+</script>
+
+</body>
+</html>
